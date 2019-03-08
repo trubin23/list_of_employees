@@ -1,28 +1,22 @@
 package ru.trubin23.listofemployees.employees
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import androidx.appcompat.app.AppCompatActivity
 import ru.trubin23.listofemployees.R
-import ru.trubin23.listofemployees.util.Injection
+import ru.trubin23.listofemployees.util.addFragmentToActivity
+import ru.trubin23.listofemployees.util.obtainViewModel
 
 class EmployeesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.employees_act)
 
-        val repository = Injection.provideEmployeesRepository(this)
-        repository
-            .getEmployees()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { employeeList ->
-                run {
-                    Log.d("employees", employeeList.size.toString())
-                }
+        supportFragmentManager.findFragmentById(R.id.content_frame)
+            ?: EmployeesFragment.newInstance().let {
+                addFragmentToActivity(it, R.id.content_frame)
             }
     }
+
+    fun obtainViewModel(): EmployeesViewModel = obtainViewModel(EmployeesViewModel::class.java)
 }

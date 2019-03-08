@@ -1,47 +1,39 @@
 package ru.trubin23.listofemployees.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "employees")
-data class Employee @JvmOverloads constructor(
+@TypeConverters(TemperamentConverter::class)
+data class Employee constructor(
     @PrimaryKey
-    @ColumnInfo(name = "id")
     @SerializedName("id")
     @Expose
     var id: String,
 
-    @ColumnInfo(name = "name")
     @SerializedName("name")
     @Expose
-    var name: String? = null,
+    var name: String,
 
-    @ColumnInfo(name = "phone")
     @SerializedName("phone")
     @Expose
-    var phone: String? = null,
+    var phone: String,
 
-    @ColumnInfo(name = "height")
     @SerializedName("height")
     @Expose
-    var height: Double? = null,
+    var height: Float,
 
-    @ColumnInfo(name = "biography")
     @SerializedName("biography")
     @Expose
-    var biography: String? = null,
+    var biography: String,
 
-    @ColumnInfo(name = "temperament")
     @SerializedName("temperament")
     @Expose
-    var temperament: String? = null,
+    var temperament: Temperament,
 
     @Embedded(prefix = "education")
     @SerializedName("educationPeriod")
     @Expose
-    var educationPeriod: EducationPeriod? = null
+    var educationPeriod: EducationPeriod
 )
