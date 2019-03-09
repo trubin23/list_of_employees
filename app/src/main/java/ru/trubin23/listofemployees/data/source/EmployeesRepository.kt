@@ -1,5 +1,6 @@
 package ru.trubin23.listofemployees.data.source
 
+import androidx.paging.DataSource
 import io.reactivex.Single
 import ru.trubin23.listofemployees.data.Employee
 import ru.trubin23.listofemployees.data.source.local.EmployeesLocalDataSource
@@ -10,20 +11,13 @@ class EmployeesRepository private constructor(
     private val employeesLocalDataSource: EmployeesLocalDataSource
 ) : EmployeesDataSource {
 
-    override fun getEmployees(): Single<List<Employee>> {
-        return Single.fromCallable {
-            employeesLocalDataSource.deleteEmployees()
-
-            employeesRemoteDataSource
-                .getEmployees()
-                .subscribe { employeeList ->
-                    run {
-                        employeesLocalDataSource.insertEmployees(employeeList)
-                    }
-                }
-
-            employeesLocalDataSource.getEmployees()
-        }
+    override fun getEmployees(): Single<DataSource.Factory<Int, Employee>> {
+        return employeesRemoteDataSource
+            .getEmployees()
+            .doOnSubscribe { employeesLocalDataSource.deleteEmployees() }
+            .map { employeeList -> employeesLocalDataSource.insertEmployees(employeeList) }
+            .toList()
+            .map { employeesLocalDataSource.getEmployees() }
     }
 
     companion object {

@@ -1,10 +1,11 @@
 package ru.trubin23.listofemployees.data.source
 
+import androidx.paging.DataSource
 import io.reactivex.Single
 import ru.trubin23.listofemployees.data.Employee
 
 interface EmployeesDataSource {
 
-    fun getEmployees(): Single<List<Employee>>
+    fun getEmployees(): Single<DataSource.Factory<Int, Employee>>
 
 }

@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.trubin23.listofemployees.data.Employee
 
-object  RetrofitClient {
+object RetrofitClient {
 
     private val BASE_URL = "https://github.com/SkbkonturMobile/mobile-test-droid/blob/master/json/"
 

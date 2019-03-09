@@ -1,12 +1,13 @@
 package ru.trubin23.listofemployees.data.source.local
 
+import androidx.paging.DataSource
 import ru.trubin23.listofemployees.data.Employee
 
 class EmployeesLocalRepository private constructor(
     private val employeesDao: EmployeesDao
 ) : EmployeesLocalDataSource {
 
-    override fun getEmployees(): List<Employee> = employeesDao.getEmployees()
+    override fun getEmployees(): DataSource.Factory<Int, Employee> = employeesDao.getEmployees()
 
     override fun insertEmployees(employees: List<Employee>) = employeesDao.insertEmployees(employees)
 
