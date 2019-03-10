@@ -10,11 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.databinding.EmployeesFragBinding
-import ru.trubin23.listofemployees.util.showSnackbar
+import ru.trubin23.listofemployees.util.setupSnackbar
 
 
 class EmployeesFragment : Fragment() {
@@ -23,42 +20,27 @@ class EmployeesFragment : Fragment() {
         val viewDataBinding = EmployeesFragBinding.inflate(inflater, container, false).apply {
             viewmodel = (activity as EmployeesActivity).obtainViewModel()
 
-            lifecycleOwner = this@EmployeesFragment
-        }
+            viewmodel?.let {
+                root.setupSnackbar(this@EmployeesFragment, it.snackbarMessage, Snackbar.LENGTH_LONG)
 
-        viewDataBinding.viewmodel?.let {
+                val adapter = EmployeesAdapter(EmployeeDiffCallback(), it)
 
-            val adapter = EmployeesAdapter(EmployeeDiffCallback(), it)
-
-            it.pagedListLiveDataSingle
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { pagedListLiveData ->
-                        viewDataBinding.progressBar.visibility = View.GONE
-                        pagedListLiveData.observe(this, Observer { pagedList ->
-                            adapter.submitList(pagedList)
-                        })
-                    },
-                    {
-                        viewDataBinding.progressBar.visibility = View.GONE
-                        showSnackbarError()
+                it.dataEmployees.observe(this@EmployeesFragment, Observer { pagedListLiveData ->
+                    pagedListLiveData.observe(this@EmployeesFragment, Observer { pagedList ->
+                        adapter.submitList(pagedList)
                     })
+                })
 
-            val dividerItemDecoration = DividerItemDecoration(context, LinearLayout.VERTICAL)
-            viewDataBinding.employeesList.addItemDecoration(dividerItemDecoration)
-            viewDataBinding.employeesList.layoutManager = LinearLayoutManager(context)
-            viewDataBinding.employeesList.adapter = adapter
+                val dividerItemDecoration = DividerItemDecoration(context, LinearLayout.VERTICAL)
+                employeesList.addItemDecoration(dividerItemDecoration)
+                employeesList.layoutManager = LinearLayoutManager(context)
+                employeesList.adapter = adapter
+
+                it.loadData()
+            }
         }
 
         return viewDataBinding.root
-    }
-
-    private fun showSnackbarError() {
-        view?.apply {
-            val text = context.getString(R.string.loading_employees_error)
-            showSnackbar(text, Snackbar.LENGTH_LONG)
-        }
     }
 
     companion object {

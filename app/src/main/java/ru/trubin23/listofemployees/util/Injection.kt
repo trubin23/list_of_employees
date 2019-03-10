@@ -4,6 +4,7 @@ import android.content.Context
 import ru.trubin23.listofemployees.data.source.EmployeesRepository
 import ru.trubin23.listofemployees.data.source.local.EmployeesDatabase
 import ru.trubin23.listofemployees.data.source.local.EmployeesLocalRepository
+import ru.trubin23.listofemployees.data.source.preferences.EmployeesPreferencesRepository
 import ru.trubin23.listofemployees.data.source.remote.EmployeesRemoteRepository
 
 object Injection {
@@ -13,7 +14,8 @@ object Injection {
 
         return EmployeesRepository.getInstance(
             EmployeesRemoteRepository.getInstance(),
-            EmployeesLocalRepository.getInstance(database.employeesDao()))
+            EmployeesLocalRepository.getInstance(database.employeesDao()),
+            EmployeesPreferencesRepository.getInstance(context))
     }
 
 }

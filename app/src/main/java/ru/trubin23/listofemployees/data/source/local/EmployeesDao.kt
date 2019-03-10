@@ -19,7 +19,7 @@ interface EmployeesDao {
     fun getEmployeeById(employeeId: String): Maybe<Employee>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEmployees(tasks: List<Employee>)
+    fun insertEmployees(employees: List<Employee>)
 
     @Query("DELETE FROM employees")
     fun deleteEmployees()

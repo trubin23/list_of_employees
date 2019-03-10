@@ -15,8 +15,6 @@ class EmployeeDetailFragment : Fragment() {
         val viewDataBinding = EmployeeDetailFragBinding.inflate(inflater, container, false).apply {
             viewmodel = (activity as EmployeeDetailActivity).obtainViewModel()
 
-            lifecycleOwner = this@EmployeeDetailFragment
-
             viewmodel?.let {
                 root.setupSnackbar(this@EmployeeDetailFragment, it.snackbarMessage, Snackbar.LENGTH_LONG)
             }

@@ -20,6 +20,7 @@ class EmployeeDetailViewModel(
     var employeeDisposable: Disposable? = null
 
     val makeCallEvent = SingleLiveEvent<String>()
+
     val snackbarMessage = SingleLiveEvent<Int>()
 
     fun start(employeeId: String) {
