@@ -20,6 +20,10 @@ class EmployeesRepository private constructor(
             .map { employeesLocalDataSource.getEmployees() }
     }
 
+    override fun getEmployeeById(employeeId: String): Single<Employee> {
+        return employeesLocalDataSource.getEmployeeById(employeeId)
+    }
+
     companion object {
 
         private var INSTANCE: EmployeesRepository? = null

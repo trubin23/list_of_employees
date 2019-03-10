@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import io.reactivex.Single
+import ru.trubin23.listofemployees.SingleLiveEvent
 import ru.trubin23.listofemployees.data.Employee
 import ru.trubin23.listofemployees.data.source.EmployeesRepository
 
@@ -13,6 +14,8 @@ class EmployeesViewModel(
 ) : ViewModel() {
 
     val pagedListLiveDataSingle: Single<LiveData<PagedList<Employee>>>
+
+    val openTaskEvent = SingleLiveEvent<String>()
 
     init {
         pagedListLiveDataSingle =

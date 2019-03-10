@@ -8,4 +8,5 @@ interface EmployeesDataSource {
 
     fun getEmployees(): Single<DataSource.Factory<Int, Employee>>
 
+    fun getEmployeeById(employeeId: String): Single<Employee>
 }

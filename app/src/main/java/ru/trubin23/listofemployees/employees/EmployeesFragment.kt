@@ -22,7 +22,7 @@ class EmployeesFragment : Fragment() {
         }
 
         viewDataBinding.viewmodel?.let {
-            val adapter = EmployeesAdapter(EmployeeDiffCallback())
+            val adapter = EmployeesAdapter(EmployeeDiffCallback(), it)
 
             it.pagedListLiveDataSingle
                 .subscribeOn(Schedulers.io())

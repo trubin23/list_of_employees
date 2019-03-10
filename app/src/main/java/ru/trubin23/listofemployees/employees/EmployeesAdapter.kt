@@ -1,34 +1,42 @@
 package ru.trubin23.listofemployees.employees
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.data.Employee
+import ru.trubin23.listofemployees.databinding.EmployeeItemBinding
 
-class EmployeesAdapter(diffCallback: DiffUtil.ItemCallback<Employee>) :
+
+class EmployeesAdapter(diffCallback: DiffUtil.ItemCallback<Employee>,
+                       private val employeesViewModel: EmployeesViewModel) :
     PagedListAdapter<Employee, EmployeesAdapter.EmployeeViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.employee_item, parent, false)
-        return EmployeeViewHolder(view)
+        val binding: EmployeeItemBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.employee_item, parent, false
+        )
+
+        binding.listener = object :EmployeeDetailListener{
+
+            override fun onEmployeeClicked(employeeId: String) {
+                employeesViewModel.openTaskEvent.value = employeeId
+            }
+        }
+
+        return EmployeeViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: EmployeeViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
-    class EmployeeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Employee?) {
-            item ?: return
-
-            itemView.findViewById<TextView>(R.id.name).text = item.name
-            itemView.findViewById<TextView>(R.id.height).text = item.height.toString()
-            itemView.findViewById<TextView>(R.id.phone).text = item.phone
+        with(holder.binding) {
+            employee = getItem(position)
+            executePendingBindings()
         }
     }
+
+    class EmployeeViewHolder(val binding: EmployeeItemBinding) : RecyclerView.ViewHolder(binding.root)
 }

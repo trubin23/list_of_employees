@@ -1,12 +1,16 @@
 package ru.trubin23.listofemployees.data
 
-import androidx.room.*
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "employees")
 @TypeConverters(TemperamentConverter::class)
 data class Employee constructor(
+
     @PrimaryKey
     @SerializedName("id")
     @Expose
@@ -36,4 +40,5 @@ data class Employee constructor(
     @SerializedName("educationPeriod")
     @Expose
     var educationPeriod: EducationPeriod
+
 )
