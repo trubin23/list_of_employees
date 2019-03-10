@@ -8,42 +8,59 @@
                 name="viewmodel"
                 type="ru.trubin23.listofemployees.employeedetail.EmployeeDetailViewModel"/>
 
+        <variable
+                name="listener"
+                type="ru.trubin23.listofemployees.employeedetail.EmployeePhoneListener"/>
+
     </data>
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/task_detail_padding">
+            android:showDividers="middle"
+            android:divider="@drawable/empty_divider"
+            android:padding="@dimen/employee_detail_padding">
 
         <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorMainText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:text="@{viewmodel.employee.name}"/>
 
         <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.employee.phone}"/>
+                android:textColor="@color/colorLinkText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:text="@{viewmodel.employee.phone}"
+                android:onClick="@{() -> listener.onEmployeePhoneClicked(viewmodel.employee.phone)}"/>
 
         <TextView
                 android:id="@+id/temperament"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAdditionalText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:text="@{viewmodel.employee.temperament.toString().toLowerCase()}"/>
 
         <TextView
                 android:id="@+id/education_period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAdditionalText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:text="@{viewmodel.employee.educationPeriod.start+'-'+viewmodel.employee.educationPeriod.end}"/>
 
         <TextView
                 android:id="@+id/biography"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorMainText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:text="@{viewmodel.employee.biography}"/>
 
     </LinearLayout>

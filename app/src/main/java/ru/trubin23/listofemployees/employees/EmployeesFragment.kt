@@ -39,10 +39,7 @@ class EmployeesFragment : Fragment() {
                         showSnackbarError()
                     })
 
-            val linearLayoutManager = LinearLayoutManager(context)
-            linearLayoutManager.orientation = RecyclerView.VERTICAL
-
-            viewDataBinding.employeesList.layoutManager = linearLayoutManager
+            viewDataBinding.employeesList.layoutManager = LinearLayoutManager(context)
             viewDataBinding.employeesList.adapter = adapter
         }
 

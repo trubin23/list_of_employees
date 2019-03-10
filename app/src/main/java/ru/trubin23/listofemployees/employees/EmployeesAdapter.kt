@@ -21,7 +21,7 @@ class EmployeesAdapter(diffCallback: DiffUtil.ItemCallback<Employee>,
             R.layout.employee_item, parent, false
         )
 
-        binding.listener = object :EmployeeDetailListener{
+        binding.listener = object :EmployeeItemListener{
 
             override fun onEmployeeClicked(employeeId: String) {
                 employeesViewModel.openTaskEvent.value = employeeId

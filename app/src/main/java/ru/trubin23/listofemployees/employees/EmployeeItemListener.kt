@@ -1,6 +1,6 @@
 package ru.trubin23.listofemployees.employees
 
-interface EmployeeDetailListener {
+interface EmployeeItemListener {
 
     fun onEmployeeClicked(employeeId: String)
 

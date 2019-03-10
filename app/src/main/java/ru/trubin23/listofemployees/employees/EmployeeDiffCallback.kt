@@ -10,6 +10,8 @@ class EmployeeDiffCallback : DiffUtil.ItemCallback<Employee>() {
     }
 
     override fun areContentsTheSame(oldItem: Employee, newItem: Employee): Boolean {
-        return oldItem == newItem
+        return oldItem.name == newItem.name &&
+                oldItem.height == newItem.height &&
+                oldItem.phone == newItem.phone
     }
 }
