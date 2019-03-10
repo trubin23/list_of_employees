@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAdditionalText"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:text="@{viewmodel.employee.educationPeriod.start+'-'+viewmodel.employee.educationPeriod.end}"/>
+                android:text="@{viewmodel.employee.educationPeriod.toString()}"/>
 
         <TextView
                 android:id="@+id/biography"

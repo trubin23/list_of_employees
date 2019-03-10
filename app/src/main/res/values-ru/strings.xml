@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">список сотрудников</string>
+    <string name="loading_employees_error">Нет подключения к сети</string>
+    <string name="request_permission_call_phone">Для совершения звонков необходимо разрешение CALL_PHONE</string>
+    <string name="employee_by_id_error">ошибка при загрузке сотрудника</string>
+    <string name="employee_by_id_not_found">сотрудник с указанным ID не найден</string>
+</resources>

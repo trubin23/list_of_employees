@@ -1,6 +1,7 @@
 package ru.trubin23.listofemployees.data.source.local
 
 import androidx.paging.DataSource
+import io.reactivex.Maybe
 import io.reactivex.Single
 import ru.trubin23.listofemployees.data.Employee
 
@@ -10,7 +11,7 @@ class EmployeesLocalRepository private constructor(
 
     override fun getEmployees(): DataSource.Factory<Int, Employee> = employeesDao.getEmployees()
 
-    override fun getEmployeeById(employeeId: String): Single<Employee> = employeesDao.getEmployeeById(employeeId)
+    override fun getEmployeeById(employeeId: String): Maybe<Employee> = employeesDao.getEmployeeById(employeeId)
 
     override fun insertEmployees(employees: List<Employee>) = employeesDao.insertEmployees(employees)
 

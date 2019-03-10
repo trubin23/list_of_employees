@@ -1,6 +1,7 @@
 package ru.trubin23.listofemployees.data.source
 
 import androidx.paging.DataSource
+import io.reactivex.Maybe
 import io.reactivex.Single
 import ru.trubin23.listofemployees.data.Employee
 import ru.trubin23.listofemployees.data.source.local.EmployeesLocalDataSource
@@ -20,7 +21,7 @@ class EmployeesRepository private constructor(
             .map { employeesLocalDataSource.getEmployees() }
     }
 
-    override fun getEmployeeById(employeeId: String): Single<Employee> {
+    override fun getEmployeeById(employeeId: String): Maybe<Employee> {
         return employeesLocalDataSource.getEmployeeById(employeeId)
     }
 

@@ -10,20 +10,23 @@
 
         <variable
                 name="listener"
-                type="ru.trubin23.listofemployees.employees.EmployeeItemListener" />
+                type="ru.trubin23.listofemployees.employees.EmployeeItemListener"/>
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/employee_item_height"
+            android:padding="@dimen/employee_item_padding"
             android:onClick="@{() -> listener.onEmployeeClicked(employee.id)}">
 
         <TextView
                 android:id="@+id/height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:text="@{String.valueOf(employee.height)}"
+                android:textColor="@color/colorMainText"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -31,7 +34,9 @@
                 android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:text="@{employee.name}"
+                android:textColor="@color/colorMainText"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/height"/>
@@ -40,8 +45,10 @@
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:text="@{employee.phone}"
-                app:layout_constraintTop_toBottomOf="@+id/name"
+                android:textColor="@color/colorMainText"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

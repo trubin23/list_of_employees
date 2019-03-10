@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import ru.trubin23.listofemployees.databinding.EmployeeDetailFragBinding
-import ru.trubin23.listofemployees.employees.EmployeeItemListener
+import ru.trubin23.listofemployees.util.setupSnackbar
 
 class EmployeeDetailFragment : Fragment() {
 
@@ -14,8 +15,13 @@ class EmployeeDetailFragment : Fragment() {
         val viewDataBinding = EmployeeDetailFragBinding.inflate(inflater, container, false).apply {
             viewmodel = (activity as EmployeeDetailActivity).obtainViewModel()
 
-            listener = object : EmployeePhoneListener {
+            lifecycleOwner = this@EmployeeDetailFragment
 
+            viewmodel?.let {
+                root.setupSnackbar(this@EmployeeDetailFragment, it.snackbarMessage, Snackbar.LENGTH_LONG)
+            }
+
+            listener = object : EmployeePhoneListener {
                 override fun onEmployeePhoneClicked(phone: String) {
                     viewmodel?.makeCallEvent?.value = phone
                 }

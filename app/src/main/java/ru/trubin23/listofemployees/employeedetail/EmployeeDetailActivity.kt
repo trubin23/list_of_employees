@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -28,10 +29,23 @@ class EmployeeDetailActivity : AppCompatActivity() {
                 addFragmentToActivity(it, R.id.content_frame)
             }
 
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+        }
+
         obtainViewModel().makeCallEvent.observe(this, Observer { phoneNumber ->
             this.phoneNumber = phoneNumber
             makeCall()
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun makeCall() {

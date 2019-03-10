@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">list of employees</string>
-    <string name="loading_employees_error">Нет подключения к сети</string>
-    <string name="request_permission_call_phone">Для совершения звонков необходимо разрешение CALL_PHONE</string>
+    <string name="loading_employees_error">No network connection</string>
+    <string name="request_permission_call_phone">To make calls you need permission: CALL_PHONE</string>
+    <string name="employee_by_id_error">error loading employee</string>
+    <string name="employee_by_id_not_found">employee with the specified ID not found</string>
 </resources>
