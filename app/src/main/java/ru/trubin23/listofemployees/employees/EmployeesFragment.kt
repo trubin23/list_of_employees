@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import ru.trubin23.listofemployees.data.Employee
 import ru.trubin23.listofemployees.databinding.EmployeesFragBinding
 import ru.trubin23.listofemployees.util.setupSnackbar
 
@@ -25,7 +28,14 @@ class EmployeesFragment : Fragment() {
 
                 val adapter = EmployeesAdapter(EmployeeDiffCallback(), it)
 
+                var liveResults: LiveData<PagedList<Employee>>? = null
+
+                it.invalidDataEmployees.observe(this@EmployeesFragment, Observer {
+                    liveResults?.removeObservers(this@EmployeesFragment)
+                })
+
                 it.dataEmployees.observe(this@EmployeesFragment, Observer { pagedListLiveData ->
+                    liveResults = pagedListLiveData
                     pagedListLiveData.observe(this@EmployeesFragment, Observer { pagedList ->
                         adapter.submitList(pagedList)
                     })

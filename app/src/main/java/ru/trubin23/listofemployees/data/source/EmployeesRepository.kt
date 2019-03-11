@@ -17,29 +17,29 @@ class EmployeesRepository private constructor(
 
     private var firstRequest: Boolean = true
 
-    override fun getEmployees(forceUpdate: Boolean): Single<DataSource.Factory<Int, Employee>> {
+    override fun getEmployees(forceUpdate: Boolean, searchLine: String): Single<DataSource.Factory<Int, Employee>> {
         val updateTime = employeesPreferencesRepository.loadUpdateTime()
         return if ((updateTime + ONE_MINUTE < Date().time && firstRequest) || forceUpdate) {
             firstRequest = false
-            getEmployeesFromNetwork()
+            getEmployeesFromNetwork(searchLine)
                 .doOnSuccess { employeesPreferencesRepository.saveUpdateTime(Date().time) }
         } else {
             firstRequest = false
-            getEmployeesFromLocalStorage()
+            getEmployeesFromLocalStorage(searchLine)
         }
     }
 
-    private fun getEmployeesFromLocalStorage(): Single<DataSource.Factory<Int, Employee>> {
-        return Single.fromCallable { employeesLocalDataSource.getEmployees() }
+    private fun getEmployeesFromLocalStorage(searchLine: String): Single<DataSource.Factory<Int, Employee>> {
+        return Single.fromCallable { employeesLocalDataSource.getEmployees(searchLine) }
     }
 
-    private fun getEmployeesFromNetwork(): Single<DataSource.Factory<Int, Employee>> {
+    private fun getEmployeesFromNetwork(searchLine: String): Single<DataSource.Factory<Int, Employee>> {
         return employeesRemoteDataSource
             .getEmployees()
             .doOnSubscribe { employeesLocalDataSource.deleteEmployees() }
             .map { employeeList -> employeesLocalDataSource.insertEmployees(employeeList) }
             .toList()
-            .map { employeesLocalDataSource.getEmployees() }
+            .map { employeesLocalDataSource.getEmployees(searchLine) }
     }
 
     override fun getEmployeeById(employeeId: String): Maybe<Employee> {

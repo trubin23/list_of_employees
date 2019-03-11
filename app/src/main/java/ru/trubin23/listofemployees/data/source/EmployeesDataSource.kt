@@ -7,7 +7,7 @@ import ru.trubin23.listofemployees.data.Employee
 
 interface EmployeesDataSource {
 
-    fun getEmployees(forceUpdate: Boolean = false): Single<DataSource.Factory<Int, Employee>>
+    fun getEmployees(forceUpdate: Boolean = false, searchLine: String): Single<DataSource.Factory<Int, Employee>>
 
     fun getEmployeeById(employeeId: String): Maybe<Employee>
 }

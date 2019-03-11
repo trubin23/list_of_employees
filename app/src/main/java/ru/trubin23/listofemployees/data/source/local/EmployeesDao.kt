@@ -6,14 +6,19 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.Maybe
-import io.reactivex.Single
 import ru.trubin23.listofemployees.data.Employee
 
 @Dao
 interface EmployeesDao {
 
-    @Query("SELECT * FROM employees ORDER BY name ASC")
-    fun getEmployees(): DataSource.Factory<Int, Employee>
+    @Query(
+        """
+        SELECT * FROM employees
+        WHERE name LIKE '%' || :searchLine || '%'
+            OR (phone LIKE '%' || :phoneNumberTemperament AND length(:phoneNumberTemperament)>0)
+        ORDER BY name ASC"""
+    )
+    fun getEmployees(searchLine: String, phoneNumberTemperament: String): DataSource.Factory<Int, Employee>
 
     @Query("SELECT * FROM employees WHERE id = :employeeId")
     fun getEmployeeById(employeeId: String): Maybe<Employee>

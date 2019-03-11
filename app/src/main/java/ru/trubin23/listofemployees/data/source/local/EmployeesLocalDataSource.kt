@@ -7,7 +7,7 @@ import ru.trubin23.listofemployees.data.Employee
 
 interface EmployeesLocalDataSource {
 
-    fun getEmployees(): DataSource.Factory<Int, Employee>
+    fun getEmployees(searchLine: String): DataSource.Factory<Int, Employee>
 
     fun getEmployeeById(employeeId: String): Maybe<Employee>
 

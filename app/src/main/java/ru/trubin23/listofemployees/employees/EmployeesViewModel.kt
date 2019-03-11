@@ -1,8 +1,8 @@
 package ru.trubin23.listofemployees.employees
 
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
@@ -14,6 +14,7 @@ import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.SingleLiveEvent
 import ru.trubin23.listofemployees.data.Employee
 import ru.trubin23.listofemployees.data.source.EmployeesRepository
+
 
 class EmployeesViewModel(
     private val employeesRepository: EmployeesRepository
@@ -31,26 +32,28 @@ class EmployeesViewModel(
 
     val dataEmployees = SingleLiveEvent<LiveData<PagedList<Employee>>>()
 
-    fun loadData() = loadData(true, false)
+    val invalidDataEmployees = SingleLiveEvent<Void?>()
 
-    private fun loadData(firstUpdate: Boolean, forceUpdate: Boolean) {
+    val searchBar = ObservableField<String>()
+
+    fun loadData() = loadData(false)
+
+    private fun loadData(forceUpdate: Boolean, searchLine: String = searchBar.get() ?: "") {
+        dataEmployeesDisposable?.dispose()
         dataEmployeesDisposable = employeesRepository
-            .getEmployees(forceUpdate)
+            .getEmployees(forceUpdate, searchLine)
             .subscribeOn(Schedulers.io())
             .map { sourceFactory ->
                 sourceFactory.toLiveData(pageSize = PAGE_SIZE)
             }
+            .doOnSubscribe { invalidDataEmployees.value = null }
             .doFinally {
                 refreshing.set(false)
                 loading.set(false)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { pagedListLiveData ->
-                    if (firstUpdate) {
-                        dataEmployees.value = pagedListLiveData
-                    }
-                },
+                { pagedListLiveData -> dataEmployees.value = pagedListLiveData },
                 { showSnackbarMessage(R.string.loading_employees_error) })
     }
 
@@ -64,7 +67,11 @@ class EmployeesViewModel(
         }
 
         refreshing.set(true)
-        loadData(false, true)
+        loadData(true)
+    }
+
+    fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
+        loadData(false, charSequence.toString())
     }
 
     override fun onCleared() {
