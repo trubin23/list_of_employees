@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import ru.trubin23.listofemployees.SingleLiveEvent
-import ru.trubin23.listofemployees.data.Employee
 import ru.trubin23.listofemployees.employees.EmployeesViewModel
 
 fun View.showSnackbar(snackbarText: String, timeLength: Int) {
