@@ -2,14 +2,14 @@ package ru.trubin23.listofemployees.employees
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import dagger.android.support.DaggerAppCompatActivity
 import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.employeedetail.EmployeeDetailActivity
 import ru.trubin23.listofemployees.util.addFragmentToActivity
 import ru.trubin23.listofemployees.util.obtainViewModel
 
-class EmployeesActivity : AppCompatActivity() {
+class EmployeesActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

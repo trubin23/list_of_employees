@@ -5,19 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerFragment
 import ru.trubin23.listofemployees.data.Employee
+import ru.trubin23.listofemployees.data.source.remote.RemoteService
 import ru.trubin23.listofemployees.databinding.EmployeesFragBinding
 import ru.trubin23.listofemployees.util.setupSnackbar
+import javax.inject.Inject
 
 
-class EmployeesFragment : Fragment() {
+class EmployeesFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var remoteService: RemoteService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val viewDataBinding = EmployeesFragBinding.inflate(inflater, container, false).apply {

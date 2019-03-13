@@ -8,9 +8,10 @@ class EmployeesRemoteRepository private constructor(
 
     override fun getEmployees(): Observable<List<Employee>> {
         return Observable.concat<List<Employee>>(
-            RetrofitClient.getEmployees("generated-01"),
-            RetrofitClient.getEmployees("generated-02"),
-            RetrofitClient.getEmployees("generated-03")
+            Observable.empty()
+            //RetrofitClient.getEmployees("generated-01"),
+            //RetrofitClient.getEmployees("generated-02"),
+            //RetrofitClient.getEmployees("generated-03")
         )
     }
 
