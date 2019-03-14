@@ -9,7 +9,6 @@ import ru.trubin23.listofemployees.di.injectors.EmployeesActivityModule
 import ru.trubin23.listofemployees.di.injectors.EmployeesFragmentModule
 import javax.inject.Singleton
 
-@Singleton
 @Component(
     modules = [AndroidSupportInjectionModule::class,
         EmployeesActivityModule::class, EmployeesFragmentModule::class],

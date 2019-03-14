@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EmployeeDetailViewModel(
-    private val employeesRepository: EmployeesRepository
+    private val employeesRepository: EmployeesRepository?
 ) : ViewModel() {
 
     val employee = ObservableField<Employee>()
@@ -30,6 +30,7 @@ class EmployeeDetailViewModel(
     val snackbarMessage = SingleLiveEvent<Int>()
 
     fun start(employeeId: String) {
+        employeesRepository ?: return
         employeeDisposable = employeesRepository
             .getEmployeeById(employeeId)
             .subscribeOn(Schedulers.io())

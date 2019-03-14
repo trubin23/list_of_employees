@@ -9,7 +9,7 @@ import ru.trubin23.listofemployees.employees.EmployeesViewModel
 import ru.trubin23.listofemployees.util.Injection
 
 class ViewModelFactory private constructor(
-    private val employeesRepository: EmployeesRepository
+    private val employeesRepository: EmployeesRepository?
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -34,7 +34,8 @@ class ViewModelFactory private constructor(
         fun getInstance(application: Application): ViewModelFactory {
             return INSTANCE ?: synchronized(ViewModelFactory::class.java) {
                 INSTANCE ?: ViewModelFactory(
-                    Injection.provideEmployeesRepository(application.applicationContext)
+                    null
+                    //Injection.provideEmployeesRepository(application.applicationContext)
                 )
                     .also { INSTANCE = it }
             }

@@ -4,7 +4,6 @@ import dagger.Component
 import ru.trubin23.listofemployees.data.source.EmployeesDataSource
 import javax.inject.Singleton
 
-@Singleton
 @Component(modules = [EmployeesDataSourceModule::class])
 interface EmployeesDataSourceComponent {
 

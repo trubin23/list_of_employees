@@ -14,7 +14,6 @@ class RetrofitClientModule {
 
     private val BASE_URL = "https://github.com/SkbkonturMobile/mobile-test-droid/blob/master/json/"
 
-    @Singleton
     @Provides
     fun getRemoteService(): RemoteService {
         val gson = GsonBuilder()

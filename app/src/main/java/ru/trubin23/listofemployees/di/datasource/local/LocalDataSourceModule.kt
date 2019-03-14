@@ -9,7 +9,6 @@ import javax.inject.Singleton
 @Module
 interface LocalDataSourceModule {
 
-    @Singleton
     @Binds
     fun getDataSource(impl: EmployeesLocalRepository): EmployeesLocalDataSource
 }

@@ -17,7 +17,7 @@ import ru.trubin23.listofemployees.data.source.EmployeesRepository
 
 
 class EmployeesViewModel(
-    private val employeesRepository: EmployeesRepository
+    private val employeesRepository: EmployeesRepository?
 ) : ViewModel() {
 
     val openTaskEvent = SingleLiveEvent<String>()
@@ -40,6 +40,7 @@ class EmployeesViewModel(
 
     private fun loadData(forceUpdate: Boolean, searchLine: String = searchBar.get() ?: "") {
         dataEmployeesDisposable?.dispose()
+        employeesRepository ?: return
         dataEmployeesDisposable = employeesRepository
             .getEmployees(forceUpdate, searchLine)
             .subscribeOn(Schedulers.io())

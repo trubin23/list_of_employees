@@ -9,7 +9,6 @@ import javax.inject.Singleton
 @Module(includes = [RetrofitClientModule::class])
 interface RemoteDataSourceModule {
 
-    @Singleton
     @Binds
     fun getDataSource(impl: EmployeesRemoteRepository): EmployeesRemoteDataSource
 }

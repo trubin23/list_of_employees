@@ -12,7 +12,6 @@ import javax.inject.Singleton
 @Module(includes = [LocalDataSourceModule::class, RemoteDataSourceModule::class, PreferencesDataSourceModule::class])
 interface EmployeesDataSourceModule {
 
-    @Singleton
     @Binds
     fun getDataSource(impl: EmployeesRepository): EmployeesDataSource
 }

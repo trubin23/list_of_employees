@@ -9,13 +9,13 @@ import ru.trubin23.listofemployees.data.source.remote.EmployeesRemoteRepository
 
 object Injection {
 
-    fun provideEmployeesRepository(context: Context): EmployeesRepository {
-        val database = EmployeesDatabase.getInstance(context)
-
-        return EmployeesRepository.getInstance(
-            EmployeesRemoteRepository.getInstance(),
-            EmployeesLocalRepository.getInstance(database.employeesDao()),
-            EmployeesPreferencesRepository.getInstance(context))
-    }
+//    fun provideEmployeesRepository(context: Context): EmployeesRepository {
+//        val database = EmployeesDatabase.getInstance(context)
+//
+//        return EmployeesRepository.getInstance(
+//            EmployeesRemoteRepository.getInstance(),
+//            EmployeesLocalRepository.getInstance(database.employeesDao()),
+//            EmployeesPreferencesRepository.getInstance(context))
+//    }
 
 }
