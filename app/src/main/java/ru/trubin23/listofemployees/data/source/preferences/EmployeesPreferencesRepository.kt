@@ -1,12 +1,13 @@
 package ru.trubin23.listofemployees.data.source.preferences
 
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import javax.inject.Inject
 
-class EmployeesPreferencesRepository private constructor(
-    private val preferences: SharedPreferences
+class EmployeesPreferencesRepository @Inject constructor(
+    //private val preferences: SharedPreferences
 ) : EmployeesPreferencesDataSource {
+
+    lateinit var preferences: SharedPreferences
 
     override fun saveUpdateTime(timestamp: Long) {
         val editor = preferences.edit()
@@ -30,19 +31,6 @@ class EmployeesPreferencesRepository private constructor(
 
         private const val TIMESTAMP_MINIMUM: Long = 0L
 
-        private var INSTANCE: EmployeesPreferencesRepository? = null
-
-        @JvmStatic
-        fun getInstance(context: Context): EmployeesPreferencesRepository {
-            if (INSTANCE == null) {
-                synchronized(EmployeesPreferencesRepository::javaClass) {
-                    if (INSTANCE == null) {
-                        val preferences = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-                        INSTANCE = EmployeesPreferencesRepository(preferences)
-                    }
-                }
-            }
-            return INSTANCE!!
-        }
+        //val preferences = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
     }
 }

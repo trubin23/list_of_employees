@@ -1,4 +1,4 @@
-package ru.trubin23.listofemployees.di
+package ru.trubin23.listofemployees.di.datasource.remote
 
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

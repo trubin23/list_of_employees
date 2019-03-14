@@ -8,8 +8,9 @@ import ru.trubin23.listofemployees.data.source.local.EmployeesLocalDataSource
 import ru.trubin23.listofemployees.data.source.preferences.EmployeesPreferencesDataSource
 import ru.trubin23.listofemployees.data.source.remote.EmployeesRemoteDataSource
 import java.util.*
+import javax.inject.Inject
 
-class EmployeesRepository private constructor(
+class EmployeesRepository @Inject constructor(
     private val employeesRemoteDataSource: EmployeesRemoteDataSource,
     private val employeesLocalDataSource: EmployeesLocalDataSource,
     private val employeesPreferencesRepository: EmployeesPreferencesDataSource
@@ -49,20 +50,5 @@ class EmployeesRepository private constructor(
     companion object {
 
         private const val ONE_MINUTE = 60_000
-
-        private var INSTANCE: EmployeesRepository? = null
-
-        @JvmStatic
-        fun getInstance(
-            employeesRemoteDataSource: EmployeesRemoteDataSource,
-            employeesLocalDataSource: EmployeesLocalDataSource,
-            employeesPreferencesRepository: EmployeesPreferencesDataSource
-        ): EmployeesRepository {
-            return INSTANCE ?: EmployeesRepository(
-                employeesRemoteDataSource,
-                employeesLocalDataSource,
-                employeesPreferencesRepository
-            ).apply { INSTANCE = this }
-        }
     }
 }

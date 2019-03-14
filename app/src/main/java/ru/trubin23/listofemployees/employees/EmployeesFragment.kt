@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import ru.trubin23.listofemployees.data.Employee
-import ru.trubin23.listofemployees.data.source.remote.RemoteService
+import ru.trubin23.listofemployees.data.source.EmployeesDataSource
 import ru.trubin23.listofemployees.databinding.EmployeesFragBinding
 import ru.trubin23.listofemployees.util.setupSnackbar
 import javax.inject.Inject
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class EmployeesFragment : DaggerFragment() {
 
     @Inject
-    lateinit var remoteService: RemoteService
+    lateinit var employeesDataSource: EmployeesDataSource
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val viewDataBinding = EmployeesFragBinding.inflate(inflater, container, false).apply {
