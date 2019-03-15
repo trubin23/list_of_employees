@@ -14,9 +14,10 @@ import ru.trubin23.listofemployees.data.source.EmployeesRepository
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class EmployeeDetailViewModel(
-    private val employeesRepository: EmployeesRepository?
+class EmployeeDetailViewModel @Inject constructor(
+    private val employeesRepository: EmployeesRepository
 ) : ViewModel() {
 
     val employee = ObservableField<Employee>()
@@ -30,7 +31,6 @@ class EmployeeDetailViewModel(
     val snackbarMessage = SingleLiveEvent<Int>()
 
     fun start(employeeId: String) {
-        employeesRepository ?: return
         employeeDisposable = employeesRepository
             .getEmployeeById(employeeId)
             .subscribeOn(Schedulers.io())

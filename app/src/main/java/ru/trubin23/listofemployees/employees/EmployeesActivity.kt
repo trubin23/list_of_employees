@@ -3,13 +3,21 @@ package ru.trubin23.listofemployees.employees
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerAppCompatActivity
 import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.employeedetail.EmployeeDetailActivity
 import ru.trubin23.listofemployees.util.addFragmentToActivity
-import ru.trubin23.listofemployees.util.obtainViewModel
+import javax.inject.Inject
 
 class EmployeesActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    val viewModel: EmployeesViewModel by lazy {
+        ViewModelProviders.of(this, factory).get(EmployeesViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,13 +26,11 @@ class EmployeesActivity : DaggerAppCompatActivity() {
         supportFragmentManager.findFragmentById(R.id.content_frame)
             ?: addFragmentToActivity(EmployeesFragment.newInstance(), R.id.content_frame)
 
-        obtainViewModel().openTaskEvent.observe(this, Observer { employeeId ->
+        viewModel.openTaskEvent.observe(this, Observer { employeeId ->
             val intent = Intent(this, EmployeeDetailActivity::class.java).apply {
                 putExtra(EmployeeDetailActivity.EXTRA_EMPLOYEE_ID, employeeId)
             }
             startActivity(intent)
         })
     }
-
-    fun obtainViewModel(): EmployeesViewModel = obtainViewModel(EmployeesViewModel::class.java)
 }

@@ -14,10 +14,11 @@ import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.SingleLiveEvent
 import ru.trubin23.listofemployees.data.Employee
 import ru.trubin23.listofemployees.data.source.EmployeesRepository
+import javax.inject.Inject
 
 
-class EmployeesViewModel(
-    private val employeesRepository: EmployeesRepository?
+class EmployeesViewModel @Inject constructor(
+    private val employeesRepository: EmployeesRepository
 ) : ViewModel() {
 
     val openTaskEvent = SingleLiveEvent<String>()
@@ -40,7 +41,6 @@ class EmployeesViewModel(
 
     private fun loadData(forceUpdate: Boolean, searchLine: String = searchBar.get() ?: "") {
         dataEmployeesDisposable?.dispose()
-        employeesRepository ?: return
         dataEmployeesDisposable = employeesRepository
             .getEmployees(forceUpdate, searchLine)
             .subscribeOn(Schedulers.io())
