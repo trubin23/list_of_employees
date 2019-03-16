@@ -16,9 +16,11 @@ interface ViewModelFactoryModule {
 
     @IntoMap
     @ViewModelKey(EmployeesViewModel::class)
+    @Binds
     fun bindEmployeesViewModel(viewModel: EmployeesViewModel) : ViewModel
 
     @IntoMap
     @ViewModelKey(EmployeeDetailViewModel::class)
+    @Binds
     fun bindEmployeeDetailViewModel(viewModel: EmployeeDetailViewModel) : ViewModel
 }

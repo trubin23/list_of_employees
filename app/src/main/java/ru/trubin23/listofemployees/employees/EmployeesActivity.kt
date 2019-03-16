@@ -15,7 +15,7 @@ class EmployeesActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    val viewModel: EmployeesViewModel by lazy {
+    private val viewModel: EmployeesViewModel by lazy {
         ViewModelProviders.of(this, factory).get(EmployeesViewModel::class.java)
     }
 

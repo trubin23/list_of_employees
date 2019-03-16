@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,11 +24,16 @@ import javax.inject.Inject
 class EmployeesFragment : DaggerFragment() {
 
     @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: EmployeesViewModel by lazy {
+        ViewModelProviders.of(this, factory).get(EmployeesViewModel::class.java)
+    }
+
+    @Inject
     lateinit var employeesDataSource: EmployeesDataSource
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val viewDataBinding = EmployeesFragBinding.inflate(inflater, container, false).apply {
-            viewmodel = (activity as EmployeesActivity).obtainViewModel()
 
             viewmodel?.let {
                 root.setupSnackbar(this@EmployeesFragment, it.snackbarMessage, Snackbar.LENGTH_LONG)
