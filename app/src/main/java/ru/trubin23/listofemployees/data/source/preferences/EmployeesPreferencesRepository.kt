@@ -4,10 +4,8 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 
 class EmployeesPreferencesRepository @Inject constructor(
-    //private val preferences: SharedPreferences
+    private val preferences: SharedPreferences
 ) : EmployeesPreferencesDataSource {
-
-    lateinit var preferences: SharedPreferences
 
     override fun saveUpdateTime(timestamp: Long) {
         val editor = preferences.edit()
@@ -25,12 +23,8 @@ class EmployeesPreferencesRepository @Inject constructor(
 
     companion object {
 
-        private const val PREFS_NAME = "EMPLOYEES_PREFERENCES"
-
         private const val TIMESTAMP = "TIMESTAMP"
 
         private const val TIMESTAMP_MINIMUM: Long = 0L
-
-        //val preferences = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
     }
 }

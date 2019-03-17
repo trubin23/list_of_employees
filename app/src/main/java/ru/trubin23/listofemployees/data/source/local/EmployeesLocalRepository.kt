@@ -6,9 +6,8 @@ import ru.trubin23.listofemployees.data.Employee
 import javax.inject.Inject
 
 class EmployeesLocalRepository @Inject constructor(
+    private var employeesDao: EmployeesDao
 ) : EmployeesLocalDataSource {
-
-    lateinit var employeesDao: EmployeesDao
 
     override fun getEmployees(searchLine: String): DataSource.Factory<Int, Employee> {
         val phoneNumberTemperament = if (searchLine.contains(Regex("([^0-9])"))) {

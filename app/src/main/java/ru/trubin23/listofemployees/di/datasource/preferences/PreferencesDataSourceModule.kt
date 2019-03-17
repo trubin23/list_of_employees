@@ -6,7 +6,7 @@ import ru.trubin23.listofemployees.data.source.preferences.EmployeesPreferencesD
 import ru.trubin23.listofemployees.data.source.preferences.EmployeesPreferencesRepository
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [SharedPreferencesModule::class])
 interface PreferencesDataSourceModule {
 
     @Binds
