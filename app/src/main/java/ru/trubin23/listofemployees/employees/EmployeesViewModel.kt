@@ -13,12 +13,12 @@ import io.reactivex.schedulers.Schedulers
 import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.SingleLiveEvent
 import ru.trubin23.listofemployees.data.Employee
-import ru.trubin23.listofemployees.data.source.EmployeesRepository
+import ru.trubin23.listofemployees.data.source.EmployeesDataSource
 import javax.inject.Inject
 
 
 class EmployeesViewModel @Inject constructor(
-    private val employeesRepository: EmployeesRepository
+    private val employeesDataSource: EmployeesDataSource
 ) : ViewModel() {
 
     val openTaskEvent = SingleLiveEvent<String>()
@@ -41,7 +41,7 @@ class EmployeesViewModel @Inject constructor(
 
     private fun loadData(forceUpdate: Boolean, searchLine: String = searchBar.get() ?: "") {
         dataEmployeesDisposable?.dispose()
-        dataEmployeesDisposable = employeesRepository
+        dataEmployeesDisposable = employeesDataSource
             .getEmployees(forceUpdate, searchLine)
             .subscribeOn(Schedulers.io())
             .map { sourceFactory ->

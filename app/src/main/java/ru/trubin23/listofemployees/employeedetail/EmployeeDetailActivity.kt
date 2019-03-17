@@ -11,14 +11,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.util.addFragmentToActivity
-import ru.trubin23.listofemployees.util.obtainViewModel
+import javax.inject.Inject
 
 
 class EmployeeDetailActivity : AppCompatActivity() {
 
     private var phoneNumber: String? = null
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: ViewModel by lazy {
+        ViewModelProviders.of(this, factory).get(EmployeeDetailViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +43,11 @@ class EmployeeDetailActivity : AppCompatActivity() {
             it.setDisplayShowTitleEnabled(false)
         }
 
-        obtainViewModel().makeCallEvent.observe(this, Observer { phoneNumber ->
-            this.phoneNumber = phoneNumber
-            makeCall()
-        })
+        (viewModel as? EmployeeDetailViewModel)?.makeCallEvent
+            ?.observe(this, Observer { phoneNumber ->
+                this.phoneNumber = phoneNumber
+                makeCall()
+            })
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -86,8 +96,6 @@ class EmployeeDetailActivity : AppCompatActivity() {
             }
         }
     }
-
-    fun obtainViewModel(): EmployeeDetailViewModel = obtainViewModel(EmployeeDetailViewModel::class.java)
 
     companion object {
 
