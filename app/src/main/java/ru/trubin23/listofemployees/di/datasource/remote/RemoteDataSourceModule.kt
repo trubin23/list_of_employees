@@ -10,5 +10,6 @@ import javax.inject.Singleton
 interface RemoteDataSourceModule {
 
     @Binds
+    @Singleton
     fun getDataSource(impl: EmployeesRemoteRepository): EmployeesRemoteDataSource
 }

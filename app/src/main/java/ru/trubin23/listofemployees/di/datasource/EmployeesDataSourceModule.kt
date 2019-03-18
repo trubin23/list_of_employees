@@ -13,5 +13,6 @@ import javax.inject.Singleton
 interface EmployeesDataSourceModule {
 
     @Binds
+    @Singleton
     fun getDataSource(impl: EmployeesRepository): EmployeesDataSource
 }

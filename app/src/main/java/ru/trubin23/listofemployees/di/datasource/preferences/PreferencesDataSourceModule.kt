@@ -10,5 +10,6 @@ import javax.inject.Singleton
 interface PreferencesDataSourceModule {
 
     @Binds
+    @Singleton
     fun getDataSource(impl: EmployeesPreferencesRepository): EmployeesPreferencesDataSource
 }

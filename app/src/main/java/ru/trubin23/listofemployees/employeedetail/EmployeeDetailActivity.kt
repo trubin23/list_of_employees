@@ -14,12 +14,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import dagger.android.support.DaggerAppCompatActivity
 import ru.trubin23.listofemployees.R
+import ru.trubin23.listofemployees.employees.EmployeesViewModel
 import ru.trubin23.listofemployees.util.addFragmentToActivity
 import javax.inject.Inject
 
 
-class EmployeeDetailActivity : AppCompatActivity() {
+class EmployeeDetailActivity : DaggerAppCompatActivity() {
 
     private var phoneNumber: String? = null
 

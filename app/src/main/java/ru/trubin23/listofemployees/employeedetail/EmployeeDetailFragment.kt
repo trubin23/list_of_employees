@@ -9,11 +9,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerFragment
 import ru.trubin23.listofemployees.databinding.EmployeeDetailFragBinding
 import ru.trubin23.listofemployees.util.setupSnackbar
 import javax.inject.Inject
 
-class EmployeeDetailFragment : Fragment() {
+class EmployeeDetailFragment : DaggerFragment() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
