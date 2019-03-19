@@ -41,4 +41,9 @@ data class Employee constructor(
     @Expose
     var educationPeriod: EducationPeriod
 
-)
+) {
+
+    var phoneNumberDigits: String = ""
+        get() = phone.replace(Regex("\\D"), "")
+
+}

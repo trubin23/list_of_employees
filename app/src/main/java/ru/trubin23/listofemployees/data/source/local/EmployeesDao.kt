@@ -15,10 +15,10 @@ interface EmployeesDao {
         """
         SELECT * FROM employees
         WHERE name LIKE '%' || :searchLine || '%'
-            OR (phone LIKE '%' || :phoneNumberTemperament AND length(:phoneNumberTemperament)>0)
+            OR (phoneNumberDigits LIKE '%' || :phoneNumberDigits || '%' AND length(:phoneNumberDigits)>0)
         ORDER BY name ASC"""
     )
-    fun getEmployees(searchLine: String, phoneNumberTemperament: String): DataSource.Factory<Int, Employee>
+    fun getEmployees(searchLine: String, phoneNumberDigits: String): DataSource.Factory<Int, Employee>
 
     @Query("SELECT * FROM employees WHERE id = :employeeId")
     fun getEmployeeById(employeeId: String): Maybe<Employee>

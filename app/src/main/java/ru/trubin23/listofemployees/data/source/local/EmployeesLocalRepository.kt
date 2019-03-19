@@ -10,15 +10,13 @@ class EmployeesLocalRepository @Inject constructor(
 ) : EmployeesLocalDataSource {
 
     override fun getEmployees(searchLine: String): DataSource.Factory<Int, Employee> {
-        val phoneNumberTemperament = if (searchLine.contains(Regex("([^0-9])"))) {
+        val phoneNumberDigits = if (searchLine.replace(Regex("\\s"),"").contains(Regex("\\D"))) {
             ""
         } else {
             searchLine
-                .replace(Regex("([^0-9])"), "")
-                .replace(Regex("([0-9])"), { result -> "${result.value}%" })
-
+                .replace(Regex("\\s"),"")
         }
-        return employeesDao.getEmployees(searchLine, phoneNumberTemperament)
+        return employeesDao.getEmployees(searchLine, phoneNumberDigits)
     }
 
     override fun getEmployeeById(employeeId: String): Maybe<Employee> = employeesDao.getEmployeeById(employeeId)
