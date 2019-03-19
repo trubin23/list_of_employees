@@ -48,6 +48,16 @@ class EmployeeDetailActivity : DaggerAppCompatActivity() {
         })
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        phoneNumber = savedInstanceState?.getString(PHONE_NUMBER)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        phoneNumber?.let { outState.putString(PHONE_NUMBER, it) }
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
             onBackPressed()
@@ -86,16 +96,17 @@ class EmployeeDetailActivity : DaggerAppCompatActivity() {
                 makeCall()
             }
             PackageManager.PERMISSION_DENIED -> {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
-                    makeCall()
-                } else {
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
                     Toast.makeText(themedContext, R.string.request_permission_call_phone, Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
+
     companion object {
+
+        private const val PHONE_NUMBER = "PHONE_NUMBER"
 
         const val EXTRA_EMPLOYEE_ID = "EMPLOYEE_ID"
 
