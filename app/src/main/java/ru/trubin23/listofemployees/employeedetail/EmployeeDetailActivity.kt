@@ -7,16 +7,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerAppCompatActivity
 import ru.trubin23.listofemployees.R
-import ru.trubin23.listofemployees.employees.EmployeesViewModel
 import ru.trubin23.listofemployees.util.addFragmentToActivity
 import javax.inject.Inject
 
@@ -27,7 +24,7 @@ class EmployeeDetailActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    private val viewModel: ViewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProviders.of(this, factory).get(EmployeeDetailViewModel::class.java)
     }
 
@@ -45,11 +42,10 @@ class EmployeeDetailActivity : DaggerAppCompatActivity() {
             it.setDisplayShowTitleEnabled(false)
         }
 
-        (viewModel as? EmployeeDetailViewModel)?.makeCallEvent
-            ?.observe(this, Observer { phoneNumber ->
-                this.phoneNumber = phoneNumber
-                makeCall()
-            })
+        viewModel.makeCallEvent.observe(this, Observer { phoneNumber ->
+            this.phoneNumber = phoneNumber
+            makeCall()
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

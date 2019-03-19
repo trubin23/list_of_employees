@@ -7,7 +7,6 @@ import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.trubin23.listofemployees.data.source.remote.RemoteService
-import javax.inject.Singleton
 
 @Module
 class RetrofitClientModule {
