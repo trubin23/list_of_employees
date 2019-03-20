@@ -4,4 +4,8 @@
     <string name="request_permission_call_phone">To make calls you need permission: CALL_PHONE</string>
     <string name="employee_by_id_error">error loading employee</string>
     <string name="employee_by_id_not_found">employee with the specified ID not found</string>
+
+    <string name="search_hint">Search</string>
+    <string name="search_icon" translatable="false">search_icon</string>
+    <string name="search_title" translatable="false">search_title</string>
 </resources>

@@ -23,6 +23,8 @@ class EmployeesActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.employees_act)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+
         supportFragmentManager.findFragmentById(R.id.content_frame)
             ?: addFragmentToActivity(EmployeesFragment.newInstance(), R.id.content_frame)
 

@@ -5,4 +5,5 @@
     <string name="request_permission_call_phone">Для совершения звонков необходимо разрешение CALL_PHONE</string>
     <string name="employee_by_id_error">ошибка при загрузке сотрудника</string>
     <string name="employee_by_id_not_found">сотрудник с указанным ID не найден</string>
+    <string name="search_hint">Поиск</string>
 </resources>

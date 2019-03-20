@@ -32,6 +32,12 @@ class EmployeeDetailActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.employee_detail_act)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+
         supportFragmentManager.findFragmentById(R.id.content_frame)
             ?: EmployeeDetailFragment.newInstance(intent.getStringExtra(EXTRA_EMPLOYEE_ID)).let {
                 addFragmentToActivity(it, R.id.content_frame)

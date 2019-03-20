@@ -35,11 +35,9 @@ class EmployeesViewModel @Inject constructor(
 
     val invalidDataEmployees = SingleLiveEvent<Void?>()
 
-    val searchBar = ObservableField<String>()
+    fun loadData() = loadData(false, "")
 
-    fun loadData() = loadData(false)
-
-    private fun loadData(forceUpdate: Boolean, searchLine: String = searchBar.get() ?: "") {
+    private fun loadData(forceUpdate: Boolean, searchLine: String  = "") {
         dataEmployeesDisposable?.dispose()
         dataEmployeesDisposable = employeesDataSource
             .getEmployees(forceUpdate, searchLine)
@@ -68,16 +66,16 @@ class EmployeesViewModel @Inject constructor(
         }
 
         refreshing.set(true)
-        loadData(true)
-    }
-
-    fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
-        loadData(false, charSequence.toString())
+        loadData(true, "")
     }
 
     override fun onCleared() {
         super.onCleared()
         dataEmployeesDisposable?.dispose()
+    }
+
+    fun queryTextChange(text: String) {
+        loadData(false, text)
     }
 
     companion object {

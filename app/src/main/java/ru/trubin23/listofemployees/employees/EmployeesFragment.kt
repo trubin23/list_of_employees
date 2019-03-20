@@ -1,10 +1,10 @@
 package ru.trubin23.listofemployees.employees
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.LinearLayout
+import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
+import ru.trubin23.listofemployees.R
 import ru.trubin23.listofemployees.data.Employee
 import ru.trubin23.listofemployees.databinding.EmployeesFragBinding
 import ru.trubin23.listofemployees.util.setupSnackbar
@@ -59,7 +60,28 @@ class EmployeesFragment : DaggerFragment() {
             }
         }
 
+        setHasOptionsMenu(true)
+
         return viewDataBinding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+
+        val searchItem = menu.findItem(R.id.searchBar)
+
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = true
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("newText", ": $newText")
+                viewModel.queryTextChange(newText ?: "")
+                return true
+            }
+        })
+        searchView.queryHint = getString(R.string.search_hint)
+        searchView.setIconifiedByDefault(false)
     }
 
     companion object {
